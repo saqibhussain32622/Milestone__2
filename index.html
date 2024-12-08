@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="h1">Interactive Resume Builder By Saqib Husain</h1>
+    <form id="resume-form">
+        <fieldset>
+            <legend>Personal Information</legend>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required><br><br>
+
+            <!-- Image Upload Section -->
+            <label for="image-upload">Upload Profile Picture:</label>
+            <input type="file" id="image-upload" accept="image/*"><br><br>
+        </fieldset><br><br>
+
+        <fieldset>
+            <legend>Education</legend>
+            <label for="education">Education:</label>
+            <input type="text" id="education" name="education" required><br><br>
+        </fieldset><br><br>
+
+        <fieldset>
+            <legend>Experience</legend>
+            <label for="experience">Experience:</label>
+            <input type="text" id="experience" name="experience" required><br><br>
+        </fieldset><br><br>
+
+        <fieldset>
+            <legend>Skills</legend>
+            <label for="skills">Skills:</label>
+            <input type="text" id="skills" name="skills" required><br><br>
+        </fieldset><br><br>
+
+        <button type="submit">Generate Resume</button>
+    </form>
+
+    <h2>Resume Preview</h2>
+    <div id="resume-preview">
+        <!-- Profile Image Display -->
+        <img id="preview-image" src="" alt="Profile Picture" style="max-width: 150px; max-height: 150px; display: none;">
+        <h3 id="preview-name"></h3>
+        <p><strong>Email:</strong> <span id="preview-email"></span></p>
+        <p><strong>Phone:</strong> <span id="preview-phone"></span></p>
+        <p><strong>Education:</strong> <span id="preview-education"></span></p>
+        <p><strong>Experience:</strong> <span id="preview-experience"></span></p>
+        <p><strong>Skills:</strong> <span id="preview-skills"></span></p>
+    </div>
+
+    <script>
+        document.getElementById('resume-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const education = document.getElementById('education').value;
+            const experience = document.getElementById('experience').value;
+            const skills = document.getElementById('skills').value;
+
+            // Update preview section
+            document.getElementById('preview-name').innerText = name;
+            document.getElementById('preview-email').innerText = email;
+            document.getElementById('preview-phone').innerText = phone;
+            document.getElementById('preview-education').innerText = education;
+            document.getElementById('preview-experience').innerText = experience;
+            document.getElementById('preview-skills').innerText = skills;
+        });
+
+        // Image Upload and Preview
+        document.getElementById('image-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewImage = document.getElementById('preview-image');
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block'; // Show image once loaded
+                };
+                reader.readAsDataURL(file); // Read the file as a data URL for the preview
+            }
+        });
+    </script>
+</body>
+</html>
